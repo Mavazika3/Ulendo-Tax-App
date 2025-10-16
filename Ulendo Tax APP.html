@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ulendo Tax App</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    nav a.active {
+      text-decoration: underline;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.95);
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #007bff;
+    }
+
+    .hero {
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+      width: 100%;
+    }
+
+    .hero button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .confirmation {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Ulendo Tax App</h1>
+    <nav>
+      <a onclick="showSection('home')" class="active">Home</a>
+      <a onclick="showSection('booking')">Book Taxi</a>
+      <a onclick="showSection('registerTaxi')">Register Taxi</a>
+      <a onclick="showSection('admin')">Admin Panel</a>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home" class="hero">
+    <h2>Welcome to Ulendo Tax App</h2>
+    <p>Your trusted taxi booking platform — reliable rides in your area, anytime!</p>
+    <button onclick="showSection('booking')">Book a Ride</button>
+  </section>
+
+  <!-- Booking Section -->
+  <section id="booking" style="display:none;">
+    <h2>Book a Taxi</h2>
+    <form id="bookingForm">
+      <input type="text" id="pickup" placeholder="Pickup Location" required>
+      <input type="text" id="destination" placeholder="Destination" required>
+      <input type="text" id="area" placeholder="Your Area" required>
+      <input type="tel" id="phone" placeholder="Your Phone Number" required>
+      <button type="submit">Confirm Booking</button>
+    </form>
+    <p class="confirmation" id="bookingConfirmation"></p>
+  </section>
+
+  <!-- Register Taxi Section -->
+  <section id="registerTaxi" style="display:none;">
+    <h2>Register Your Taxi</h2>
+    <form id="taxiForm">
+      <input type="text" id="ownerName" placeholder="Owner Name" required>
+      <input type="text" id="vehicleModel" placeholder="Vehicle Model" required>
+      <input type="text" id="plateNumber" placeholder="License Plate Number" required>
+      <input type="tel" id="driverContact" placeholder="Driver Contact Number" required>
+      <button type="submit">Register Taxi</button>
+    </form>
+    <p class="confirmation" id="taxiConfirmation"></p>
+  </section>
+
+  <!-- Admin Panel Section -->
+  <section id="admin" style="display:none;">
+    <h2>Admin Panel</h2>
+    <form id="staffForm">
+      <input type="text" id="staffName" placeholder="Staff Name" required>
+      <input type="text" id="staffRole" placeholder="Staff Role" required>
+      <input type="tel" id="staffContact" placeholder="Contact Number" required>
+      <button type="submit">Add / Update Staff</button>
+    </form>
+    <table id="staffTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Contact</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Ulendo Tax App | Reliable Rides, Anytime.</p>
+    <p><strong>Contact:</strong> 0882139442 | frankmavazika@gmail.com</p>
+    <p><strong>Location:</strong> Blantyre, Malawi</p>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll("section").forEach(s => s.style.display = "none");
+      document.getElementById(id).style.display = "block";
+      document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
+      document.querySelector(`nav a[onclick="showSection('${id}')"]`).classList.add("active");
+    }
+
+    // Booking Form
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const pickup = document.getElementById('pickup').value;
+      const destination = document.getElementById('destination').value;
+      const area = document.getElementById('area').value;
+      const phone = document.getElementById('phone').value;
+
+      if (pickup && destination && area && phone) {
+        document.getElementById('bookingConfirmation').textContent =
+          `✅ Taxi booked successfully! A driver in ${area} will contact you soon.`;
+        this.reset();
+      }
+    });
+
+    // Taxi Registration
+    document.getElementById('taxiForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const ownerName = document.getElementById('ownerName').value;
+      const vehicleModel = document.getElementById('vehicleModel').value;
+      const plateNumber = document.getElementById('plateNumber').value;
+      const driverContact = document.getElementById('driverContact').value;
+
+      if (ownerName && vehicleModel && plateNumber && driverContact) {
+        document.getElementById('taxiConfirmation').textContent =
+          `🚗 Taxi owned by ${ownerName} (${vehicleModel}) registered successfully!`;
+        this.reset();
+      }
+    });
+
+    // Admin - Staff Management
+    const staffTableBody = document.querySelector("#staffTable tbody");
+    let staffList = [];
+
+    document.getElementById('staffForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('staffName').value;
+      const role = document.getElementById('staffRole').value;
+      const contact = document.getElementById('staffContact').value;
+
+      if (name && role && contact) {
+        const existing = staffList.find(s => s.name === name);
+        if (existing) {
+          existing.role = role;
+          existing.contact = contact;
+        } else {
+          staffList.push({ name, role, contact });
+        }
+        renderStaff();
+        this.reset();
+      }
+    });
+
+    function renderStaff() {
+      staffTableBody.innerHTML = "";
+      staffList.forEach((s, index) => {
+        const row = `<tr>
+          <td>${s.name}</td>
+          <td>${s.role}</td>
+          <td>${s.contact}</td>
+          <td><button onclick="deleteStaff(${index})" style="background:red;">Delete</button></td>
+        </tr>`;
+        staffTableBody.innerHTML += row;
+      });
+    }
+
+    function deleteStaff(index) {
+      staffList.splice(index, 1);
+      renderStaff();
+    }
+  </script>
+</body>
+</html>
